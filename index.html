@@ -89,9 +89,9 @@
             to { transform: rotate(360deg); }
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(var(--final-rotation)); }
+        @keyframes countdownPulse {
+            0%, 100% { transform: scale(1); color: var(--warning); }
+            50% { transform: scale(1.05); color: var(--danger); }
         }
 
         /* Header */
@@ -280,16 +280,17 @@
             height: 100%;
             border-radius: 50%;
             background: conic-gradient(
-                var(--success) 0% 16.6%,
-                var(--danger) 16.6% 33.3%,
-                var(--success) 33.3% 50%,
-                var(--danger) 50% 66.6%,
-                var(--success) 66.6% 83.3%,
-                var(--danger) 83.3% 100%
+                var(--success) 0deg 60deg,
+                var(--danger) 60deg 120deg,
+                var(--success) 120deg 180deg,
+                var(--danger) 180deg 240deg,
+                var(--success) 240deg 300deg,
+                var(--danger) 300deg 360deg
             );
             border: 8px solid var(--secondary);
             transition: transform 4s cubic-bezier(0.2, 0.8, 0.3, 1);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transform: rotate(0deg);
         }
 
         .pointer {
@@ -375,7 +376,6 @@
             padding: 15px;
             border-radius: var(--border-radius);
             background: rgba(255, 255, 255, 0.05);
-            word-break: break-word;
         }
 
         .counter {
@@ -383,6 +383,19 @@
             font-weight: 600;
             color: var(--gray);
             text-align: center;
+        }
+
+        .countdown-timer {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--warning);
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 204, 0, 0.1);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--warning);
+            animation: countdownPulse 1s infinite;
         }
 
         /* Produtos */
@@ -408,7 +421,6 @@
             position: relative;
             overflow: hidden;
             animation: fadeIn 1s ease-out;
-            min-height: 600px;
         }
 
         .product-card:nth-child(1) { animation-delay: 0.1s; }
@@ -437,7 +449,7 @@
         .product-badge {
             position: absolute;
             top: 20px;
-            right: 20px;
+            left: 20px;
             background: var(--gradient-primary);
             color: white;
             padding: 8px 20px;
@@ -454,9 +466,9 @@
             font-size: 1.8rem;
             font-weight: 800;
             color: var(--light);
+            margin-top: 45px;
             margin-bottom: 20px;
             line-height: 1.3;
-            word-break: break-word;
         }
 
         .product-price {
@@ -478,30 +490,13 @@
         .product-features {
             list-style: none;
             margin: 25px 0;
-            height: 300px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .product-features::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .product-features::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 3px;
-        }
-
-        .product-features::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 3px;
         }
 
         .product-features li {
             padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 12px;
         }
 
@@ -509,7 +504,6 @@
             color: var(--secondary);
             font-size: 1.1rem;
             min-width: 20px;
-            margin-top: 3px;
         }
 
         .product-features strong {
@@ -535,7 +529,6 @@
             box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
             position: relative;
             overflow: hidden;
-            word-break: break-word;
         }
 
         .whatsapp-button:hover {
@@ -564,7 +557,6 @@
             font-weight: 700;
             color: var(--accent);
             animation: fadeIn 1s ease-out;
-            word-break: break-word;
         }
 
         /* Footer */
@@ -649,6 +641,35 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            h1 { font-size: 2.8rem; }
+            .products-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1rem; }
+            .section-title { font-size: 2rem; }
+            .products-grid { grid-template-columns: 1fr; }
+            .legend { flex-direction: column; align-items: center; gap: 15px; }
+            .highlight-box { padding: 15px; margin: 20px auto; }
+            .highlight-box p { font-size: 0.95rem; }
+            .product-badge { left: 10px; top: 10px; padding: 6px 15px; font-size: 0.8rem; }
+            .product-title { margin-top: 40px; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .logo-icon { font-size: 36px; }
+            .roulette-section { padding: 25px; }
+            .product-card { padding: 25px; }
+            .spin-button, .whatsapp-button, .telegram-button { padding: 15px 25px; font-size: 1rem; }
+            .footer-links { flex-direction: column; align-items: center; gap: 20px; }
+            .product-title { font-size: 1.5rem; }
+            .countdown-timer { font-size: 1.2rem; padding: 10px; }
+        }
+
         /* Efeitos visuais adicionais */
         .floating-icon {
             position: fixed;
@@ -704,84 +725,57 @@
             animation: float 6s infinite ease-in-out;
         }
 
-        /* Responsividade */
-        @media (max-width: 1024px) {
-            h1 { font-size: 2.8rem; }
-            .products-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
-            .product-card { min-height: 650px; }
+        /* Controles de som */
+        .sound-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
         }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .subtitle { font-size: 1rem; }
-            .section-title { font-size: 2rem; }
-            .products-grid { grid-template-columns: 1fr; }
-            .legend { flex-direction: column; align-items: center; gap: 15px; }
-            .highlight-box { padding: 15px; margin: 20px auto; }
-            .highlight-box p { font-size: 0.95rem; }
-            .product-card { min-height: auto; padding: 25px; }
-            .product-features { height: auto; max-height: 300px; }
-            .product-title { font-size: 1.6rem; }
-            .roulette-wheel { width: 250px; height: 250px; }
-            .result-message { font-size: 1.1rem; padding: 10px; }
+        .sound-button {
+            background: var(--gradient-secondary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+            transition: var(--transition);
         }
 
-        @media (max-width: 480px) {
-            h1 { font-size: 1.8rem; }
-            .logo-icon { font-size: 36px; }
-            .roulette-section { padding: 25px; }
-            .roulette-wheel { width: 220px; height: 220px; }
-            .product-card { padding: 20px; }
-            .spin-button, .whatsapp-button, .telegram-button { 
-                padding: 15px 25px; 
-                font-size: 1rem; 
-                word-break: break-word;
-            }
-            .whatsapp-button span, .telegram-button span { font-size: 0.9rem; }
-            .footer-links { flex-direction: column; align-items: center; gap: 20px; }
-            .product-features li { font-size: 0.9rem; padding: 10px 0; }
-            .product-price { font-size: 2rem; }
-            .payment-note { padding: 15px; font-size: 0.9rem; }
+        .sound-button:hover {
+            transform: scale(1.1);
         }
 
-        @media (max-width: 360px) {
-            h1 { font-size: 1.6rem; }
-            .subtitle { font-size: 0.9rem; }
-            .product-title { font-size: 1.4rem; }
-            .roulette-wheel { width: 200px; height: 200px; }
-            .spin-button, .whatsapp-button, .telegram-button { 
-                padding: 12px 20px; 
-                font-size: 0.9rem; 
-            }
-            .whatsapp-button::after, .telegram-button::after { margin-left: 5px; }
-        }
-
-        /* Correções para mobile */
-        .mobile-friendly {
-            -webkit-text-size-adjust: 100%;
-            -moz-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-        }
-
-        .no-overlap {
-            white-space: normal !important;
-            overflow-wrap: break-word !important;
-            word-wrap: break-word !important;
+        .sound-button.muted {
+            background: var(--gray);
         }
     </style>
 </head>
-<body class="mobile-friendly">
+<body>
+    <!-- Partículas de fundo -->
+    <div class="particles" id="particles"></div>
+
     <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo">
                 <i class="fas fa-store logo-icon"></i>
             </div>
-            <h1 class="no-overlap">MUNDO STORE</h1>
-            <div class="subtitle no-overlap">CLICK NO BOTÃO COMPRAR VOCÊ SERÁ DIRECIONADO PARA WHATSAPP!</div>
+            <h1>MUNDO STORE</h1>
+            <div class="subtitle">CLICK NO BOTÃO COMPRAR VOCÊ SERÁ DIRECIONADO PARA WHATSAPP!</div>
             
             <div class="highlight-box">
-                <p class="no-overlap">
+                <p>
                     <span class="highlight-text">TODO NOSSO MATERIAL É PAGAMENTO ÚNICO OU SEJA SEM MESALIDADES!</span><br>
                     OS GRUPO VIP TELEGRAM TAMBÉM SEM MENSALIDADES! TODOS OS GRUPOS SÃO LIBERADOS PARA FAZER DOWNLOADS!
                 </p>
@@ -793,7 +787,7 @@
     <div class="container">
         <!-- Sorteio -->
         <section class="roulette-section">
-            <h2 class="roulette-title no-overlap">SORTEIO PACK COM MAIS 15 MIL MÚSICAS + VIDEOCLIPES — PAGA APENAS R$1,00 SE GANHAR!</h2>
+            <h2 class="roulette-title">SORTEIO PACK COM MAIS 15 MIL MÚSICAS + VIDEOCLIPES — PAGA APENAS R$1,00 SE GANHAR!</h2>
             
             <div class="legend">
                 <div class="legend-item">
@@ -812,22 +806,23 @@
                     <div id="roulette" class="roulette"></div>
                 </div>
                 
-                <p id="resultMessage" class="result-message no-overlap"></p>
+                <p id="resultMessage" class="result-message"></p>
                 
                 <div class="counter">
                     Tentativas usadas: <span id="triesCounter">0</span>/3
                 </div>
                 
-                <button id="spinButton" class="spin-button no-overlap" onclick="spinRoulette()">GIRAR ROLETA</button>
+                <button id="spinButton" class="spin-button">GIRAR ROLETA</button>
                 
-                <p id="timer" class="counter no-overlap"></p>
+                <div id="countdownTimer" class="countdown-timer" style="display: none;"></div>
+                <p id="timer" class="counter"></p>
             </div>
         </section>
 
         <!-- Nota do WhatsApp -->
         <div class="payment-note">
             <i class="fas fa-exclamation-circle"></i> 
-            <span class="no-overlap">APÓS GANHAR NA ROLETA, VOCÊ SERÁ REDIRECIONADO AUTOMATICAMENTE PARA O WHATSAPP PARA FINALIZAR A COMPRA!</span>
+            APÓS GANHAR NA ROLETA, VOCÊ SERÁ REDIRECIONADO AUTOMATICAMENTE PARA O WHATSAPP PARA FINALIZAR A COMPRA!
         </div>
 
         <!-- Produtos -->
@@ -838,7 +833,7 @@
                 <!-- Produto 1: PACK 15 MIL MÚSICAS + VIDEOCLIPES -->
                 <div class="product-card">
                     <div class="product-badge">ECONÔMICO</div>
-                    <h3 class="product-title no-overlap">PACK 15 MIL MÚSICAS + VIDEOCLIPES</h3>
+                    <h3 class="product-title">PACK 15 MIL MÚSICAS + VIDEOCLIPES</h3>
                     
                     <div class="product-price">
                         <span class="original-price">R$ 8,00</span>
@@ -855,7 +850,7 @@
                         <li><i class="fas fa-check"></i> <strong>PAGAMENTO ÚNICO!</strong></li>
                     </ul>
                     
-                    <a href="https://wa.link/l4olzf" target="_blank" class="whatsapp-button no-overlap">
+                    <a href="https://wa.link/l4olzf" target="_blank" class="whatsapp-button">
                         <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
                     </a>
                 </div>
@@ -863,7 +858,7 @@
                 <!-- Produto 2: PACK 25 MIL MÚSICAS + VIDEOCLIPES -->
                 <div class="product-card">
                     <div class="product-badge">POPULAR</div>
-                    <h3 class="product-title no-overlap">PACK 25 MIL MÚSICAS + VIDEOCLIPES</h3>
+                    <h3 class="product-title">PACK 25 MIL MÚSICAS + VIDEOCLIPES</h3>
                     
                     <div class="product-price">
                         <span class="original-price">R$ 15,00</span>
@@ -881,15 +876,48 @@
                         <li><i class="fas fa-check"></i> <strong>PAGAMENTO ÚNICO!</strong></li>
                     </ul>
                     
-                    <a href="https://wa.link/xyrsse" target="_blank" class="whatsapp-button no-overlap">
+                    <a href="https://wa.link/xyrsse" target="_blank" class="whatsapp-button">
                         <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
                     </a>
                 </div>
 
-                <!-- Produto 3: ELITE FITNESS -->
+                <!-- Produto 3: SUPER PACK DJ PROFISSIONAL -->
+                <div class="product-card">
+                    <div class="product-badge">MAIS VENDIDO</div>
+                    <h3 class="product-title">SUPER PACK DJ PROFISSIONAL</h3>
+                    
+                    <div class="product-price">
+                        <span class="original-price">R$ 250,00</span>
+                        R$ 60,00
+                    </div>
+                    
+                    <div class="payment-note" style="margin: 15px 0; padding: 15px;">
+                        <i class="fab fa-telegram"></i> MATERIAL 100% HOSPEDADO NO GRUPO VIP TELEGRAM
+                    </div>
+                    
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Mais de 4 TB de músicas organizadas por estilo</li>
+                        <li><i class="fas fa-check"></i> TODAS MP3 SEM VINHETAS</li>
+                        <li><i class="fas fa-check"></i> Mais de 1 TB de efeitos sonoros</li>
+                        <li><i class="fas fa-check"></i> Softwares para DJ, apps Android e videoclipes</li>
+                        <li><i class="fas fa-check"></i> Pack profissional Gospel — avaliado por rádios</li>
+                        <li><i class="fas fa-check"></i> Packs por evento: 15 anos, Casamento, Natal, etc.</li>
+                        <li><i class="fas fa-check"></i> Ritmos: Funk, Eletrônica, Sertanejo, Pagode...</li>
+                        <li><i class="fas fa-check"></i> Músicas EXTEND profissionais</li>
+                        <li><i class="fas fa-check"></i> PACK RETRO: Discoteca, Flashback, Eurodance, Dance Antigos</li>
+                        <li><i class="fas fa-check"></i> <strong>AS ATUALIZAÇÕES TUDO QUE CONSEGUIMOS DE NOVO JOGAMOS NO GRUPO!</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>PAGAMENTO ÚNICO! SEM MENSALIDADE!</strong></li>
+                    </ul>
+                    
+                    <a href="https://wa.link/dxedm2" target="_blank" class="whatsapp-button">
+                        <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
+                    </a>
+                </div>
+
+                <!-- Produto 4: ELITE FITNESS -->
                 <div class="product-card">
                     <div class="product-badge">NOVO</div>
-                    <h3 class="product-title no-overlap">ELITE FITNESS</h3>
+                    <h3 class="product-title">ELITE FITNESS</h3>
                     
                     <div class="product-price">
                         R$ 20,00
@@ -908,30 +936,375 @@
                         <li><i class="fas fa-check"></i> <strong>PAGAMENTO ÚNICO!</strong></li>
                     </ul>
                     
-                    <a href="https://wa.link/e2zjcs" target="_blank" class="whatsapp-button no-overlap">
+                    <a href="https://wa.link/e2zjcs" target="_blank" class="whatsapp-button">
                         <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
                     </a>
                 </div>
 
-                <!-- Produto 4: SUPER PACK DJ PROFISSIONAL -->
+                <!-- Produto 5: SUPER RETRO -->
                 <div class="product-card">
-                    <div class="product-badge">MAIS VENDIDO</div>
-                    <h3 class="product-title no-overlap">SUPER PACK DJ PROFISSIONAL</h3>
+                    <div class="product-badge">LANÇAMENTO</div>
+                    <h3 class="product-title">SUPER RETRO</h3>
                     
                     <div class="product-price">
-                        <span class="original-price">R$ 250,00</span>
-                        R$ 60,00
+                        R$ 30,00
                     </div>
                     
-                    <div class="payment-note" style="margin: 15px 0; padding: 15px;">
-                        <i class="fab fa-telegram"></i> <span class="no-overlap">MATERIAL 100% HOSPEDADO NO GRUPO VIP TELEGRAM</span>
+                    <div class="payment-note" style="margin: 15px 0; padding: 15px; background: rgba(255, 71, 87, 0.1); border-color: var(--danger);">
+                        <i class="fas fa-exclamation-triangle"></i> JOGOS HOSPEDADOS NO GRUPO VIP TELEGRAM
+                    </div>
+                    
+                    <div class="payment-note" style="margin: 15px 0; padding: 15px; background: rgba(255, 71, 87, 0.1); border-color: var(--danger);">
+                        <i class="fas fa-exclamation-triangle"></i> ATENÇÃO: NÃO DAMOS SUPORTE PARA ESSE PACK. É NECESSÁRIO CONHECIMENTO AVANÇADO!
                     </div>
                     
                     <ul class="product-features">
-                        <li><i class="fas fa-check"></i> Mais de 4 TB de músicas organizadas por estilo</li>
-                        <li><i class="fas fa-check"></i> TODAS MP3 SEM VINHETAS</li>
-                        <li><i class="fas fa-check"></i> Mais de 1 TB de efeitos sonoros</li>
-                        <li><i class="fas fa-check"></i> Softwares para DJ, apps Android e videoclipes</li>
-                        <li><i class="fas fa-check"></i> Pack profissional Gospel — avaliado por rádios</li>
-                        <li><i class="fas fa-check"></i> Packs por evento: 15 anos, Casamento, Natal, etc.</li>
-                        <li><i class="fas fa-check"></i> Ritmos: Funk, Elet
+                        <li><i class="fas fa-gamepad"></i> <strong>LISTA DE JOGOS PARA PC</strong></li>
+                        <li><i class="fas fa-check"></i> AGE OF EMPIRES 3</li>
+                        <li><i class="fas fa-check"></i> ASSASSINS CREED 1</li>
+                        <li><i class="fas fa-check"></i> CALL OF DUTY 1</li>
+                        <li><i class="fas fa-check"></i> CALL OF JUAREZ BOUND IN BLOOD</li>
+                        <li><i class="fas fa-check"></i> CS 1.6 COM BOTS</li>
+                        <li><i class="fas fa-check"></i> DEAD SPACE 1</li>
+                        <li><i class="fas fa-check"></i> FARCRY 1</li>
+                        <li><i class="fas fa-check"></i> GTA VICE CITY</li>
+                        <li><i class="fas fa-check"></i> MAFIA 1 E 2</li>
+                        <li><i class="fas fa-check"></i> MAX PAYNE 1</li>
+                        <li><i class="fas fa-check"></i> NEED FOR SPEED MOST WANTED</li>
+                        <li><i class="fas fa-check"></i> NEED FOR SPEED UNDERGROUND 2</li>
+                        <li><i class="fas fa-check"></i> SIMS 3</li>
+                        <li><i class="fas fa-check"></i> TOMB RAIDER</li>
+                        <li><i class="fas fa-check"></i> <strong>E MAIS DE 100 JOGOS RETRO!</strong></li>
+                    </ul>
+                    
+                    <a href="https://wa.link/xt1j2c" target="_blank" class="whatsapp-button">
+                        <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Telegram -->
+        <div class="telegram-section">
+            <h2 class="section-title">GRUPO VIP TELEGRAM</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: var(--gray);">
+                TODOS OS MATERIAIS SÃO ATUALIZADOS CONSTANTEMENTE NO GRUPO VIP DO TELEGRAM!<br>
+                <strong style="color: var(--accent);">SEM MENSALIDADES - ACESSO VITALÍCIO!</strong>
+            </p>
+            <a href="https://t.me/mundostorevip" target="_blank" class="telegram-button">
+                <span>ENTRAR NO GRUPO VIP TELEGRAM</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://wa.link/l4olzf" target="_blank" class="footer-link">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="https://t.me/mundostorevip" target="_blank" class="footer-link">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
+                <a href="mailto:mundostore@exemplo.com" class="footer-link">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+            </div>
+            
+            <div class="copyright">
+                © 2024 MUNDO STORE - Todos os direitos reservados.<br>
+                Os produtos são digitais, pagamento único e sem mensalidades.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Flutuante -->
+    <a href="https://wa.link/l4olzf" target="_blank" class="floating-icon">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Controles de Som -->
+    <div class="sound-controls">
+        <button id="toggleMusic" class="sound-button">
+            <i class="fas fa-music"></i>
+        </button>
+        <button id="toggleSound" class="sound-button">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- JavaScript para a Roleta -->
+    <script>
+        // Variáveis do jogo
+        let tries = 0;
+        const maxTries = 3;
+        let isSpinning = false;
+        let gameActive = true;
+        let countdownInterval = null;
+        let countdownTime = 5 * 60; // 5 minutos em segundos
+
+        // Elementos DOM
+        const roulette = document.getElementById('roulette');
+        const resultMessage = document.getElementById('resultMessage');
+        const triesCounter = document.getElementById('triesCounter');
+        const spinButton = document.getElementById('spinButton');
+        const timerElement = document.getElementById('timer');
+        const countdownTimer = document.getElementById('countdownTimer');
+
+        // Elementos de som
+        const toggleMusic = document.getElementById('toggleMusic');
+        const toggleSound = document.getElementById('toggleSound');
+
+        // Sons (usando URLs públicas)
+        const sounds = {
+            spin: 'https://assets.mixkit.co/sfx/preview/mixkit-casino-roulette-spin-1030.mp3',
+            win: 'https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3',
+            lose: 'https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3',
+            click: 'https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3',
+            tick: 'https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3',
+            background: 'https://assets.mixkit.co/music/preview/mixkit-game-show-suspense-waiting-667.mp3'
+        };
+
+        // Estado dos sons
+        let soundEnabled = true;
+        let musicEnabled = true;
+
+        // Criar elementos de áudio
+        const audioElements = {};
+        for (const [key, url] of Object.entries(sounds)) {
+            audioElements[key] = new Audio(url);
+            audioElements[key].volume = 0.5;
+        }
+
+        // Atualizar contador
+        triesCounter.textContent = tries;
+
+        // Velocidades diferentes para cada tentativa
+        const spinSpeeds = [4.0, 3.5, 3.0]; // Mais rápido a cada tentativa
+
+        // Função para tocar som
+        function playSound(soundName) {
+            if (!soundEnabled) return;
+            
+            try {
+                const sound = audioElements[soundName];
+                if (sound) {
+                    sound.currentTime = 0;
+                    sound.play().catch(e => console.log("Erro ao tocar som:", e));
+                }
+            } catch (e) {
+                console.log("Erro no sistema de som:", e);
+            }
+        }
+
+        // Função para controlar música de fundo
+        function toggleBackgroundMusic() {
+            const bgMusic = audioElements.background;
+            if (musicEnabled) {
+                bgMusic.loop = true;
+                bgMusic.volume = 0.3;
+                bgMusic.play().catch(e => console.log("Erro ao tocar música:", e));
+                toggleMusic.innerHTML = '<i class="fas fa-music"></i>';
+                toggleMusic.classList.remove('muted');
+            } else {
+                bgMusic.pause();
+                toggleMusic.innerHTML = '<i class="fas fa-music-slash"></i>';
+                toggleMusic.classList.add('muted');
+            }
+        }
+
+        // Função para controlar efeitos sonoros
+        function toggleSoundEffects() {
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+                toggleSound.innerHTML = '<i class="fas fa-volume-up"></i>';
+                toggleSound.classList.remove('muted');
+            } else {
+                toggleSound.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                toggleSound.classList.add('muted');
+            }
+        }
+
+        // Event listeners para controles de som
+        toggleMusic.addEventListener('click', () => {
+            musicEnabled = !musicEnabled;
+            toggleBackgroundMusic();
+            playSound('click');
+        });
+
+        toggleSound.addEventListener('click', () => {
+            toggleSoundEffects();
+            playSound('click');
+        });
+
+        // Iniciar música de fundo
+        toggleBackgroundMusic();
+
+        // Função para iniciar contagem regressiva
+        function startCountdown() {
+            countdownTimer.style.display = 'block';
+            countdownTime = 5 * 60; // 5 minutos
+            
+            countdownInterval = setInterval(() => {
+                countdownTime--;
+                
+                const minutes = Math.floor(countdownTime / 60);
+                const seconds = countdownTime % 60;
+                
+                countdownTimer.textContent = `⏰ Próxima tentativa em: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Tocar som de tick a cada 10 segundos
+                if (countdownTime % 10 === 0) {
+                    playSound('tick');
+                }
+                
+                if (countdownTime <= 0) {
+                    clearInterval(countdownInterval);
+                    resetGame();
+                }
+            }, 1000);
+        }
+
+        // Função para resetar o jogo
+        function resetGame() {
+            tries = 0;
+            gameActive = true;
+            triesCounter.textContent = tries;
+            spinButton.disabled = false;
+            spinButton.textContent = "GIRAR ROLETA";
+            spinButton.style.background = '';
+            resultMessage.textContent = '';
+            countdownTimer.style.display = 'none';
+            timerElement.textContent = 'Tente novamente!';
+        }
+
+        // Função para girar a roleta
+        function spinRoulette() {
+            if (!gameActive || isSpinning || tries >= maxTries) return;
+            
+            playSound('click'); // Som de clique
+            playSound('spin'); // Som da roleta girando
+            
+            isSpinning = true;
+            tries++;
+            triesCounter.textContent = tries;
+            
+            // Desabilitar botão durante o giro
+            spinButton.disabled = true;
+            spinButton.textContent = "GIRANDO...";
+            
+            // Determinar resultado ANTES de girar (50% chance verde, 50% vermelho)
+            const isGreen = Math.random() < 0.5; // 50% de chance de ganhar
+            
+            // Calcular ângulo final baseado no resultado
+            // Segmentos: 6 segmentos de 60 graus cada (0-59: verde, 60-119: vermelho, etc.)
+            // Queremos que pare exatamente no meio de um segmento (30 graus offset)
+            
+            let targetSegment;
+            if (isGreen) {
+                // Segmentos verdes: 0 (0-59), 2 (120-179), 4 (240-299)
+                const greenSegments = [0, 2, 4];
+                targetSegment = greenSegments[Math.floor(Math.random() * greenSegments.length)];
+            } else {
+                // Segmentos vermelhos: 1 (60-119), 3 (180-239), 5 (300-359)
+                const redSegments = [1, 3, 5];
+                targetSegment = redSegments[Math.floor(Math.random() * redSegments.length)];
+            }
+            
+            // Ângulo do meio do segmento (segmento * 60 + 30)
+            const targetAngle = targetSegment * 60 + 30;
+            
+            // Rotação total (múltiplas voltas + ângulo alvo)
+            const fullRotations = 5 + Math.floor(Math.random() * 3); // 5-7 voltas completas
+            const totalRotation = (fullRotations * 360) + (360 - (targetAngle % 360));
+            
+            // Velocidade baseada na tentativa
+            const spinDuration = spinSpeeds[Math.min(tries - 1, spinSpeeds.length - 1)];
+            
+            // Aplicar animação com velocidade diferente
+            roulette.style.transition = `transform ${spinDuration}s cubic-bezier(0.2, 0.8, 0.3, 1)`;
+            roulette.style.transform = `rotate(${totalRotation}deg)`;
+            
+            // Determinar resultado após a rotação
+            setTimeout(() => {
+                if (isGreen) {
+                    // Ganhou - REDIRECIONAR
+                    playSound('win'); // Som de vitória
+                    resultMessage.innerHTML = '<span style="color: var(--success);">🎉 PARABÉNS! VOCÊ GANHOU O PACK! 🎉</span><br>Redirecionando para WhatsApp em 3 segundos...';
+                    resultMessage.style.background = 'rgba(0, 255, 136, 0.1)';
+                    
+                    // Desativar jogo
+                    gameActive = false;
+                    spinButton.textContent = "PARABÉNS! VOCÊ GANHOU!";
+                    spinButton.style.background = 'var(--gradient-secondary)';
+                    
+                    // Redirecionar para WhatsApp após 3 segundos
+                    setTimeout(() => {
+                        window.open('https://wa.link/6rz5rd', '_blank');
+                    }, 3000);
+                    
+                } else {
+                    // Não ganhou - CONTINUAR JOGO
+                    playSound('lose'); // Som de derrota
+                    resultMessage.innerHTML = '<span style="color: var(--danger);">😢 QUE PENA! VOCÊ NÃO GANHOU DESTA VEZ.</span><br>Tente novamente!';
+                    resultMessage.style.background = 'rgba(255, 71, 87, 0.1)';
+                    
+                    if (tries >= maxTries) {
+                        // Tentativas esgotadas - INICIAR CONTAGEM REGRESSIVA
+                        spinButton.textContent = "TENTATIVAS ESGOTADAS";
+                        spinButton.disabled = true;
+                        timerElement.innerHTML = '<span style="color: var(--warning);">⏰ Novas tentativas em 5 minutos!</span>';
+                        startCountdown();
+                    } else {
+                        // Pode tentar novamente
+                        spinButton.textContent = `GIRAR ROLETA (${maxTries - tries} tentativas restantes)`;
+                        spinButton.disabled = false;
+                    }
+                }
+                
+                isSpinning = false;
+                
+            }, spinDuration * 1000 + 500); // Tempo da animação + margem
+        }
+
+        // Adicionar evento de clique ao botão
+        spinButton.addEventListener('click', spinRoulette);
+
+        // Criar partículas de fundo
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Posição aleatória
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Tamanho aleatório
+                const size = 2 + Math.random() * 4;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Cor aleatória
+                const colors = ['var(--secondary)', 'var(--accent)', 'var(--success)', 'var(--warning)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Atraso na animação
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                // Duração da animação
+                particle.style.animationDuration = `${3 + Math.random() * 4}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Inicializar partículas quando a página carregar
+        window.addEventListener('DOMContentLoaded', createParticles);
+    </script>
+</body>
+</html>
