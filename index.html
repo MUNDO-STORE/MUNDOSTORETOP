@@ -89,6 +89,11 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(var(--final-rotation)); }
+        }
+
         /* Header */
         .header {
             background: var(--gradient-dark);
@@ -370,6 +375,7 @@
             padding: 15px;
             border-radius: var(--border-radius);
             background: rgba(255, 255, 255, 0.05);
+            word-break: break-word;
         }
 
         .counter {
@@ -402,6 +408,7 @@
             position: relative;
             overflow: hidden;
             animation: fadeIn 1s ease-out;
+            min-height: 600px;
         }
 
         .product-card:nth-child(1) { animation-delay: 0.1s; }
@@ -449,6 +456,7 @@
             color: var(--light);
             margin-bottom: 20px;
             line-height: 1.3;
+            word-break: break-word;
         }
 
         .product-price {
@@ -470,13 +478,30 @@
         .product-features {
             list-style: none;
             margin: 25px 0;
+            height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .product-features::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .product-features::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .product-features::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 3px;
         }
 
         .product-features li {
             padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
         }
 
@@ -484,6 +509,7 @@
             color: var(--secondary);
             font-size: 1.1rem;
             min-width: 20px;
+            margin-top: 3px;
         }
 
         .product-features strong {
@@ -509,6 +535,7 @@
             box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
             position: relative;
             overflow: hidden;
+            word-break: break-word;
         }
 
         .whatsapp-button:hover {
@@ -537,6 +564,7 @@
             font-weight: 700;
             color: var(--accent);
             animation: fadeIn 1s ease-out;
+            word-break: break-word;
         }
 
         /* Footer */
@@ -621,31 +649,6 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Responsividade */
-        @media (max-width: 1024px) {
-            h1 { font-size: 2.8rem; }
-            .products-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .subtitle { font-size: 1rem; }
-            .section-title { font-size: 2rem; }
-            .products-grid { grid-template-columns: 1fr; }
-            .legend { flex-direction: column; align-items: center; gap: 15px; }
-            .highlight-box { padding: 15px; margin: 20px auto; }
-            .highlight-box p { font-size: 0.95rem; }
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 1.8rem; }
-            .logo-icon { font-size: 36px; }
-            .roulette-section { padding: 25px; }
-            .product-card { padding: 25px; }
-            .spin-button, .whatsapp-button, .telegram-button { padding: 15px 25px; font-size: 1rem; }
-            .footer-links { flex-direction: column; align-items: center; gap: 20px; }
-        }
-
         /* Efeitos visuais adicionais */
         .floating-icon {
             position: fixed;
@@ -700,23 +703,85 @@
             border-radius: 50%;
             animation: float 6s infinite ease-in-out;
         }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            h1 { font-size: 2.8rem; }
+            .products-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+            .product-card { min-height: 650px; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1rem; }
+            .section-title { font-size: 2rem; }
+            .products-grid { grid-template-columns: 1fr; }
+            .legend { flex-direction: column; align-items: center; gap: 15px; }
+            .highlight-box { padding: 15px; margin: 20px auto; }
+            .highlight-box p { font-size: 0.95rem; }
+            .product-card { min-height: auto; padding: 25px; }
+            .product-features { height: auto; max-height: 300px; }
+            .product-title { font-size: 1.6rem; }
+            .roulette-wheel { width: 250px; height: 250px; }
+            .result-message { font-size: 1.1rem; padding: 10px; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .logo-icon { font-size: 36px; }
+            .roulette-section { padding: 25px; }
+            .roulette-wheel { width: 220px; height: 220px; }
+            .product-card { padding: 20px; }
+            .spin-button, .whatsapp-button, .telegram-button { 
+                padding: 15px 25px; 
+                font-size: 1rem; 
+                word-break: break-word;
+            }
+            .whatsapp-button span, .telegram-button span { font-size: 0.9rem; }
+            .footer-links { flex-direction: column; align-items: center; gap: 20px; }
+            .product-features li { font-size: 0.9rem; padding: 10px 0; }
+            .product-price { font-size: 2rem; }
+            .payment-note { padding: 15px; font-size: 0.9rem; }
+        }
+
+        @media (max-width: 360px) {
+            h1 { font-size: 1.6rem; }
+            .subtitle { font-size: 0.9rem; }
+            .product-title { font-size: 1.4rem; }
+            .roulette-wheel { width: 200px; height: 200px; }
+            .spin-button, .whatsapp-button, .telegram-button { 
+                padding: 12px 20px; 
+                font-size: 0.9rem; 
+            }
+            .whatsapp-button::after, .telegram-button::after { margin-left: 5px; }
+        }
+
+        /* Correções para mobile */
+        .mobile-friendly {
+            -webkit-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        .no-overlap {
+            white-space: normal !important;
+            overflow-wrap: break-word !important;
+            word-wrap: break-word !important;
+        }
     </style>
 </head>
-<body>
-    <!-- Partículas de fundo -->
-    <div class="particles" id="particles"></div>
-
+<body class="mobile-friendly">
     <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo">
                 <i class="fas fa-store logo-icon"></i>
             </div>
-            <h1>MUNDO STORE</h1>
-            <div class="subtitle">CLICK NO BOTÃO COMPRAR VOCÊ SERÁ DIRECIONADO PARA WHATSAPP!</div>
+            <h1 class="no-overlap">MUNDO STORE</h1>
+            <div class="subtitle no-overlap">CLICK NO BOTÃO COMPRAR VOCÊ SERÁ DIRECIONADO PARA WHATSAPP!</div>
             
             <div class="highlight-box">
-                <p>
+                <p class="no-overlap">
                     <span class="highlight-text">TODO NOSSO MATERIAL É PAGAMENTO ÚNICO OU SEJA SEM MESALIDADES!</span><br>
                     OS GRUPO VIP TELEGRAM TAMBÉM SEM MENSALIDADES! TODOS OS GRUPOS SÃO LIBERADOS PARA FAZER DOWNLOADS!
                 </p>
@@ -728,7 +793,7 @@
     <div class="container">
         <!-- Sorteio -->
         <section class="roulette-section">
-            <h2 class="roulette-title">SORTEIO PACK COM MAIS 15 MIL MÚSICAS + VIDEOCLIPES — PAGA APENAS R$1,00 SE GANHAR!</h2>
+            <h2 class="roulette-title no-overlap">SORTEIO PACK COM MAIS 15 MIL MÚSICAS + VIDEOCLIPES — PAGA APENAS R$1,00 SE GANHAR!</h2>
             
             <div class="legend">
                 <div class="legend-item">
@@ -747,22 +812,22 @@
                     <div id="roulette" class="roulette"></div>
                 </div>
                 
-                <p id="resultMessage" class="result-message"></p>
+                <p id="resultMessage" class="result-message no-overlap"></p>
                 
                 <div class="counter">
                     Tentativas usadas: <span id="triesCounter">0</span>/3
                 </div>
                 
-                <button id="spinButton" class="spin-button" onclick="spinRoulette()">GIRAR ROLETA</button>
+                <button id="spinButton" class="spin-button no-overlap" onclick="spinRoulette()">GIRAR ROLETA</button>
                 
-                <p id="timer" class="counter"></p>
+                <p id="timer" class="counter no-overlap"></p>
             </div>
         </section>
 
         <!-- Nota do WhatsApp -->
         <div class="payment-note">
             <i class="fas fa-exclamation-circle"></i> 
-            APÓS GANHAR NA ROLETA, VOCÊ SERÁ REDIRECIONADO AUTOMATICAMENTE PARA O WHATSAPP PARA FINALIZAR A COMPRA!
+            <span class="no-overlap">APÓS GANHAR NA ROLETA, VOCÊ SERÁ REDIRECIONADO AUTOMATICAMENTE PARA O WHATSAPP PARA FINALIZAR A COMPRA!</span>
         </div>
 
         <!-- Produtos -->
@@ -773,7 +838,7 @@
                 <!-- Produto 1: PACK 15 MIL MÚSICAS + VIDEOCLIPES -->
                 <div class="product-card">
                     <div class="product-badge">ECONÔMICO</div>
-                    <h3 class="product-title">PACK 15 MIL MÚSICAS + VIDEOCLIPES</h3>
+                    <h3 class="product-title no-overlap">PACK 15 MIL MÚSICAS + VIDEOCLIPES</h3>
                     
                     <div class="product-price">
                         <span class="original-price">R$ 8,00</span>
@@ -790,15 +855,41 @@
                         <li><i class="fas fa-check"></i> <strong>PAGAMENTO ÚNICO!</strong></li>
                     </ul>
                     
-                    <a href="https://wa.link/l4olzf" target="_blank" class="whatsapp-button">
+                    <a href="https://wa.link/l4olzf" target="_blank" class="whatsapp-button no-overlap">
                         <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
                     </a>
                 </div>
 
-                <!-- Produto 2: ELITE FITNESS -->
+                <!-- Produto 2: PACK 25 MIL MÚSICAS + VIDEOCLIPES -->
+                <div class="product-card">
+                    <div class="product-badge">POPULAR</div>
+                    <h3 class="product-title no-overlap">PACK 25 MIL MÚSICAS + VIDEOCLIPES</h3>
+                    
+                    <div class="product-price">
+                        <span class="original-price">R$ 15,00</span>
+                        R$ 8,00
+                    </div>
+                    
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> 25.000 músicas atualizadas</li>
+                        <li><i class="fas fa-check"></i> Videoclipes em alta qualidade</li>
+                        <li><i class="fas fa-check"></i> Organizadas por gêneros musicais</li>
+                        <li><i class="fas fa-check"></i> MÚSICAS SEM VINHETAS MAIS DE 33 RITMOS!</li>
+                        <li><i class="fas fa-check"></i> Formatos MP3 e MP4</li>
+                        <li><i class="fas fa-check"></i> Download direto</li>
+                        <li><i class="fas fa-check"></i> Playlists prontas para festas</li>
+                        <li><i class="fas fa-check"></i> <strong>PAGAMENTO ÚNICO!</strong></li>
+                    </ul>
+                    
+                    <a href="https://wa.link/xyrsse" target="_blank" class="whatsapp-button no-overlap">
+                        <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
+                    </a>
+                </div>
+
+                <!-- Produto 3: ELITE FITNESS -->
                 <div class="product-card">
                     <div class="product-badge">NOVO</div>
-                    <h3 class="product-title">ELITE FITNESS</h3>
+                    <h3 class="product-title no-overlap">ELITE FITNESS</h3>
                     
                     <div class="product-price">
                         R$ 20,00
@@ -817,15 +908,15 @@
                         <li><i class="fas fa-check"></i> <strong>PAGAMENTO ÚNICO!</strong></li>
                     </ul>
                     
-                    <a href="https://wa.link/e2zjcs" target="_blank" class="whatsapp-button">
+                    <a href="https://wa.link/e2zjcs" target="_blank" class="whatsapp-button no-overlap">
                         <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
                     </a>
                 </div>
 
-                <!-- Produto 3: SUPER PACK DJ PROFISSIONAL -->
+                <!-- Produto 4: SUPER PACK DJ PROFISSIONAL -->
                 <div class="product-card">
                     <div class="product-badge">MAIS VENDIDO</div>
-                    <h3 class="product-title">SUPER PACK DJ PROFISSIONAL</h3>
+                    <h3 class="product-title no-overlap">SUPER PACK DJ PROFISSIONAL</h3>
                     
                     <div class="product-price">
                         <span class="original-price">R$ 250,00</span>
@@ -833,7 +924,7 @@
                     </div>
                     
                     <div class="payment-note" style="margin: 15px 0; padding: 15px;">
-                        <i class="fab fa-telegram"></i> MATERIAL 100% HOSPEDADO NO GRUPO VIP TELEGRAM
+                        <i class="fab fa-telegram"></i> <span class="no-overlap">MATERIAL 100% HOSPEDADO NO GRUPO VIP TELEGRAM</span>
                     </div>
                     
                     <ul class="product-features">
@@ -843,68 +934,4 @@
                         <li><i class="fas fa-check"></i> Softwares para DJ, apps Android e videoclipes</li>
                         <li><i class="fas fa-check"></i> Pack profissional Gospel — avaliado por rádios</li>
                         <li><i class="fas fa-check"></i> Packs por evento: 15 anos, Casamento, Natal, etc.</li>
-                        <li><i class="fas fa-check"></i> Ritmos: Funk, Eletrônica, Sertanejo, Pagode...</li>
-                        <li><i class="fas fa-check"></i> Músicas EXTEND profissionais</li>
-                        <li><i class="fas fa-check"></i> PACK RETRO: Discoteca, Flashback, Eurodance, Dance Antigos</li>
-                        <li><i class="fas fa-check"></i> <strong>AS ATUALIZAÇÕES TUDO QUE CONSEGUIMOS DE NOVO JOGAMOS NO GRUPO!</strong></li>
-                        <li><i class="fas fa-check"></i> <strong>PAGAMENTO ÚNICO! SEM MENSALIDADE!</strong></li>
-                    </ul>
-                    
-                    <a href="https://wa.link/dxedm2" target="_blank" class="whatsapp-button">
-                        <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
-                    </a>
-                </div>
-
-                <!-- Produto 4: PACK 25 MIL MÚSICAS + VIDEOCLIPES -->
-                <div class="product-card">
-                    <div class="product-badge">POPULAR</div>
-                    <h3 class="product-title">PACK 25 MIL MÚSICAS + VIDEOCLIPES</h3>
-                    
-                    <div class="product-price">
-                        <span class="original-price">R$ 15,00</span>
-                        R$ 8,00
-                    </div>
-                    
-                    <ul class="product-features">
-                        <li><i class="fas fa-check"></i> 25.000 músicas atualizadas</li>
-                        <li><i class="fas fa-check"></i> Videoclipes em alta qualidade</li>
-                        <li><i class="fas fa-check"></i> Organizadas por gêneros musicais</li>
-                        <li><i class="fas fa-check"></i> MÚSICAS SEM VINHETAS MAIS DE 33 RITMOS!</li>
-                        <li><i class="fas fa-check"></i> Formatos MP3 e MP4</li>
-                        <li><i class="fas fa-check"></i> Download direto</li>
-                        <li><i class="fas fa-check"></i> Playlists prontas para festas</li>
-                        <li><i class="fas fa-check"></i> <strong>PAGAMENTO ÚNICO!</strong></li>
-                    </ul>
-                    
-                    <a href="https://wa.link/xyrsse" target="_blank" class="whatsapp-button">
-                        <span>CLICK AQUI PARA COMPRAR PELO WHATSAPP</span>
-                    </a>
-                </div>
-
-                <!-- Produto 5: SUPER RETRO -->
-                <div class="product-card">
-                    <div class="product-badge">LANÇAMENTO</div>
-                    <h3 class="product-title">SUPER RETRO</h3>
-                    
-                    <div class="product-price">
-                        R$ 30,00
-                    </div>
-                    
-                    <div class="payment-note" style="margin: 15px 0; padding: 15px; background: rgba(255, 71, 87, 0.1); border-color: var(--danger);">
-                        <i class="fas fa-exclamation-triangle"></i> JOGOS HOSPEDADOS NO GRUPO VIP TELEGRAM
-                    </div>
-                    
-                    <div class="payment-note" style="margin: 15px 0; padding: 15px; background: rgba(255, 71, 87, 0.1); border-color: var(--danger);">
-                        <i class="fas fa-exclamation-triangle"></i> ATENÇÃO: NÃO DAMOS SUPORTE PARA ESSE PACK. É NECESSÁRIO CONHECIMENTO AVANÇADO!
-                    </div>
-                    
-                    <ul class="product-features">
-                        <li><i class="fas fa-gamepad"></i> <strong>LISTA DE JOGOS PARA PC</strong></li>
-                        <li><i class="fas fa-check"></i> AGE OF EMPIRES 3</li>
-                        <li><i class="fas fa-check"></i> ASSASSINS CREED 1</li>
-                        <li><i class="fas fa-check"></i> CALL OF DUTY 1</li>
-                        <li><i class="fas fa-check"></i> CALL OF JUAREZ BOUND IN BLOOD</li>
-                        <li><i class="fas fa-check"></i> CS 1.6 COM BOTS</li>
-                        <li><i class="fas fa-check"></i> DEAD SPACE 1</li>
-                        <li><i class="fas fa-check"></i> FARCRY 1</li>
-                        <li><i class="fas fa-check
+                        <li><i class="fas fa-check"></i> Ritmos: Funk, Elet
