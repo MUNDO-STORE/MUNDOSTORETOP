@@ -511,6 +511,38 @@
             font-weight: 700;
         }
 
+        .product-note {
+            background: rgba(255, 71, 87, 0.1);
+            border: 2px solid var(--danger);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 700;
+            color: var(--danger);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .product-note i {
+            margin-right: 10px;
+        }
+
+        .product-bonus {
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 700;
+            color: var(--accent);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .product-bonus i {
+            margin-right: 10px;
+        }
+
         .whatsapp-button {
             display: block;
             width: 100%;
@@ -950,16 +982,19 @@
                         R$ 30,00
                     </div>
                     
-                    <div class="payment-note" style="margin: 15px 0; padding: 15px; background: rgba(255, 71, 87, 0.1); border-color: var(--danger);">
-                        <i class="fas fa-exclamation-triangle"></i> JOGOS HOSPEDADOS NO GRUPO VIP TELEGRAM
+                    <!-- Nota 1 -->
+                    <div class="product-note">
+                        <i class="fas fa-exclamation-triangle"></i> JOGOS HOSPEDADOS NO GRUPO VIP TELEGRAM!
                     </div>
                     
-                    <div class="payment-note" style="margin: 15px 0; padding: 15px; background: rgba(255, 71, 87, 0.1); border-color: var(--danger);">
+                    <!-- Nota 2 -->
+                    <div class="product-note">
                         <i class="fas fa-exclamation-triangle"></i> ATENÇÃO: NÃO DAMOS SUPORTE PARA ESSE PACK. É NECESSÁRIO CONHECIMENTO AVANÇADO!
                     </div>
                     
                     <ul class="product-features">
                         <li><i class="fas fa-gamepad"></i> <strong>LISTA DE JOGOS PARA PC</strong></li>
+                        <li><i class="fas fa-check"></i> <small>(ALGUNS JOGOS EM PC HIGH-END PODE FICAR COM A TELA PISCANDO, SE PRECISAR DO DIRECTX ESTÁ NO GRUPO)</small></li>
                         <li><i class="fas fa-check"></i> AGE OF EMPIRES 3</li>
                         <li><i class="fas fa-check"></i> ASSASSINS CREED 1</li>
                         <li><i class="fas fa-check"></i> CALL OF DUTY 1</li>
@@ -967,14 +1002,40 @@
                         <li><i class="fas fa-check"></i> CS 1.6 COM BOTS</li>
                         <li><i class="fas fa-check"></i> DEAD SPACE 1</li>
                         <li><i class="fas fa-check"></i> FARCRY 1</li>
-                        <li><i class="fas fa-check"></i> GTA VICE CITY</li>
-                        <li><i class="fas fa-check"></i> MAFIA 1 E 2</li>
-                        <li><i class="fas fa-check"></i> MAX PAYNE 1</li>
-                        <li><i class="fas fa-check"></i> NEED FOR SPEED MOST WANTED</li>
-                        <li><i class="fas fa-check"></i> NEED FOR SPEED UNDERGROUND 2</li>
-                        <li><i class="fas fa-check"></i> SIMS 3</li>
-                        <li><i class="fas fa-check"></i> TOMB RAIDER</li>
-                        <li><i class="fas fa-check"></i> <strong>E MAIS DE 100 JOGOS RETRO!</strong></li>
+                        <li><i class="fas fa-check"></i> GEARS OF WAR 1</li>
+                        <li><i class="fas fa-check"></i> GTA SAN ANDREAS</li>
+                        <li><i class="fas fa-check"></i> HALF-LIFE 2</li>
+                        <li><i class="fas fa-check"></i> NEED FOR SPEED 1 - 2 - MOST WANTED - CARBON</li>
+                        <li><i class="fas fa-check"></i> RESIDENT EVIL 3 - 4 - 5</li>
+                        <li><i class="fas fa-check"></i> WARCRAFT 3 - THE FROZEN THRONE</li>
+                        <li><i class="fas fa-check"></i> <strong>E MUITO MAIS!</strong></li>
+                    </ul>
+                    
+                    <!-- Bônus 1 -->
+                    <div class="product-bonus">
+                        <i class="fas fa-gift"></i> NA COMPRA VOCÊ GANHA PACK EMULADORES COM MAIS DE 1 TERA DE JOGOS PARA PC - ANDROID!
+                    </div>
+                    
+                    <ul class="product-features">
+                        <li><i class="fas fa-gamepad"></i> <strong>EMULADORES INCLUSOS:</strong></li>
+                        <li><i class="fas fa-check"></i> SUPER NINTENDO</li>
+                        <li><i class="fas fa-check"></i> NINTENDO 64</li>
+                        <li><i class="fas fa-check"></i> PS1 - PSP</li>
+                        <li><i class="fas fa-check"></i> DREAMCAST</li>
+                        <li><i class="fas fa-check"></i> <strong>E MUITO MAIS!</strong></li>
+                    </ul>
+                    
+                    <!-- Bônus 2 -->
+                    <div class="product-bonus">
+                        <i class="fas fa-users"></i> NA COMPRA VOCÊ ENTRA PARA NOSSO GRUPO VIP VIDEOS RETRO!
+                    </div>
+                    
+                    <ul class="product-features">
+                        <li><i class="fas fa-tv"></i> <strong>CONTEÚDO VIP:</strong></li>
+                        <li><i class="fas fa-check"></i> DESENHOS ANTIGOS</li>
+                        <li><i class="fas fa-check"></i> JASPION - JIRAIA - JIBAN</li>
+                        <li><i class="fas fa-check"></i> FAMILIA DINOSSAURO</li>
+                        <li><i class="fas fa-check"></i> <strong>E MUITO MAIS!</strong></li>
                     </ul>
                     
                     <a href="https://wa.link/xt1j2c" target="_blank" class="whatsapp-button">
