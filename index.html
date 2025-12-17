@@ -757,8 +757,8 @@
             animation: float 6s infinite ease-in-out;
         }
 
-        /* Controles de som */
-        .sound-controls {
+        /* REMOVIDO: Controles de som */
+        /* .sound-controls {
             position: fixed;
             bottom: 30px;
             left: 30px;
@@ -790,7 +790,7 @@
 
         .sound-button.muted {
             background: var(--gray);
-        }
+        } */
     </style>
 </head>
 <body>
@@ -1081,16 +1081,6 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Controles de Som -->
-    <div class="sound-controls">
-        <button id="toggleMusic" class="sound-button">
-            <i class="fas fa-music"></i>
-        </button>
-        <button id="toggleSound" class="sound-button">
-            <i class="fas fa-volume-up"></i>
-        </button>
-    </div>
-
     <!-- JavaScript para a Roleta -->
     <script>
         // Variáveis do jogo
@@ -1109,94 +1099,8 @@
         const timerElement = document.getElementById('timer');
         const countdownTimer = document.getElementById('countdownTimer');
 
-        // Elementos de som
-        const toggleMusic = document.getElementById('toggleMusic');
-        const toggleSound = document.getElementById('toggleSound');
-
-        // Sons (usando URLs públicas)
-        const sounds = {
-            spin: 'https://assets.mixkit.co/sfx/preview/mixkit-casino-roulette-spin-1030.mp3',
-            win: 'https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3',
-            lose: 'https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3',
-            click: 'https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3',
-            tick: 'https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3',
-            background: 'https://assets.mixkit.co/music/preview/mixkit-game-show-suspense-waiting-667.mp3'
-        };
-
-        // Estado dos sons
-        let soundEnabled = true;
-        let musicEnabled = true;
-
-        // Criar elementos de áudio
-        const audioElements = {};
-        for (const [key, url] of Object.entries(sounds)) {
-            audioElements[key] = new Audio(url);
-            audioElements[key].volume = 0.5;
-        }
-
-        // Atualizar contador
-        triesCounter.textContent = tries;
-
         // Velocidades diferentes para cada tentativa
         const spinSpeeds = [4.0, 3.5, 3.0]; // Mais rápido a cada tentativa
-
-        // Função para tocar som
-        function playSound(soundName) {
-            if (!soundEnabled) return;
-            
-            try {
-                const sound = audioElements[soundName];
-                if (sound) {
-                    sound.currentTime = 0;
-                    sound.play().catch(e => console.log("Erro ao tocar som:", e));
-                }
-            } catch (e) {
-                console.log("Erro no sistema de som:", e);
-            }
-        }
-
-        // Função para controlar música de fundo
-        function toggleBackgroundMusic() {
-            const bgMusic = audioElements.background;
-            if (musicEnabled) {
-                bgMusic.loop = true;
-                bgMusic.volume = 0.3;
-                bgMusic.play().catch(e => console.log("Erro ao tocar música:", e));
-                toggleMusic.innerHTML = '<i class="fas fa-music"></i>';
-                toggleMusic.classList.remove('muted');
-            } else {
-                bgMusic.pause();
-                toggleMusic.innerHTML = '<i class="fas fa-music-slash"></i>';
-                toggleMusic.classList.add('muted');
-            }
-        }
-
-        // Função para controlar efeitos sonoros
-        function toggleSoundEffects() {
-            soundEnabled = !soundEnabled;
-            if (soundEnabled) {
-                toggleSound.innerHTML = '<i class="fas fa-volume-up"></i>';
-                toggleSound.classList.remove('muted');
-            } else {
-                toggleSound.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                toggleSound.classList.add('muted');
-            }
-        }
-
-        // Event listeners para controles de som
-        toggleMusic.addEventListener('click', () => {
-            musicEnabled = !musicEnabled;
-            toggleBackgroundMusic();
-            playSound('click');
-        });
-
-        toggleSound.addEventListener('click', () => {
-            toggleSoundEffects();
-            playSound('click');
-        });
-
-        // Iniciar música de fundo
-        toggleBackgroundMusic();
 
         // Função para iniciar contagem regressiva
         function startCountdown() {
@@ -1210,11 +1114,6 @@
                 const seconds = countdownTime % 60;
                 
                 countdownTimer.textContent = `⏰ Próxima tentativa em: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                // Tocar som de tick a cada 10 segundos
-                if (countdownTime % 10 === 0) {
-                    playSound('tick');
-                }
                 
                 if (countdownTime <= 0) {
                     clearInterval(countdownInterval);
@@ -1239,9 +1138,6 @@
         // Função para girar a roleta
         function spinRoulette() {
             if (!gameActive || isSpinning || tries >= maxTries) return;
-            
-            playSound('click'); // Som de clique
-            playSound('spin'); // Som da roleta girando
             
             isSpinning = true;
             tries++;
@@ -1287,7 +1183,6 @@
             setTimeout(() => {
                 if (isGreen) {
                     // Ganhou - REDIRECIONAR
-                    playSound('win'); // Som de vitória
                     resultMessage.innerHTML = '<span style="color: var(--success);">🎉 PARABÉNS! VOCÊ GANHOU O PACK! 🎉</span><br>Redirecionando para WhatsApp em 3 segundos...';
                     resultMessage.style.background = 'rgba(0, 255, 136, 0.1)';
                     
@@ -1303,7 +1198,6 @@
                     
                 } else {
                     // Não ganhou - CONTINUAR JOGO
-                    playSound('lose'); // Som de derrota
                     resultMessage.innerHTML = '<span style="color: var(--danger);">😢 QUE PENA! VOCÊ NÃO GANHOU DESTA VEZ.</span><br>Tente novamente!';
                     resultMessage.style.background = 'rgba(255, 71, 87, 0.1)';
                     
